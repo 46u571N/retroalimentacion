@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escalera de Metacognición</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f4f8 0%, #f5e6ff 50%, #fff9e6 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header h1 {
+            font-size: 3em;
+            color: #6b46c1;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #8b5cf6;
+            font-size: 1.3em;
+            font-style: italic;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: 2px solid #6b46c1;
+            border-radius: 25px;
+            background: white;
+            color: #6b46c1;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+        }
+
+        .btn:hover {
+            background: #6b46c1;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(107, 70, 193, 0.3);
+        }
+
+        .escalera-wrapper {
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            gap: 0;
+            padding: 20px;
+            position: relative;
+            min-height: 600px;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+            animation: slideUp 0.8s ease-out backwards;
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step:nth-child(1) { animation-delay: 0.1s; }
+        .step:nth-child(2) { animation-delay: 0.2s; }
+        .step:nth-child(3) { animation-delay: 0.3s; }
+        .step:nth-child(4) { animation-delay: 0.4s; }
+        .step:nth-child(5) { animation-delay: 0.5s; }
+
+        .step-icon-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5em;
+            background: white;
+            margin-bottom: -20px;
+            z-index: 2;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+
+        .step-body {
+            width: 250px;
+            padding: 30px 20px 25px 20px;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step-body:hover {
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ESCALÓN 1 - MÁS BAJO (280px) */
+        .step:nth-child(1) .step-icon-circle {
+            border-color: #d4af37;
+        }
+        .step:nth-child(1) .step-body {
+            background: linear-gradient(135deg, #fef9c3 0%, #fde047 100%);
+            height: 360px;
+        }
+
+        /* ESCALÓN 2 - (360px) */
+        .step:nth-child(2) .step-icon-circle {
+            border-color: #f97316;
+        }
+        .step:nth-child(2) .step-body {
+            background: linear-gradient(135deg, #fed7aa 0%, #fb923c 100%);
+            height: 400px;
+        }
+
+        /* ESCALÓN 3 - (340px) */
+        .step:nth-child(3) .step-icon-circle {
+            border-color: #ef4444;
+        }
+        .step:nth-child(3) .step-body {
+            background: linear-gradient(135deg, #fecaca 0%, #f87171 100%);
+            height: 440px;
+        }
+
+        /* ESCALÓN 4 - (420px) */
+        .step:nth-child(4) .step-icon-circle {
+            border-color: #a855f7;
+        }
+        .step:nth-child(4) .step-body {
+            background: linear-gradient(135deg, #e9d5ff 0%, #c084fc 100%);
+            height: 470px;
+        }
+
+        /* ESCALÓN 5 - MÁS ALTO (500px) */
+        .step:nth-child(5) .step-icon-circle {
+            border-color: #8b5cf6;
+        }
+        .step:nth-child(5) .step-body {
+            background: linear-gradient(135deg, #ddd6fe 0%, #a78bfa 100%);
+            height: 500px;
+        }
+
+        .step-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .step-content {
+            font-size: 0.9em;
+            color: #374151;
+            line-height: 1.6;
+            text-align: left;
+            max-height: 1000px;
+            opacity: 1;
+            transition: all 0.4s ease;
+            overflow-y: auto;
+        }
+
+        .step.collapsed .step-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        .step-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-content li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .step-content li::before {
+            content: "•";
+            position: absolute;
+            left: 5px;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .trophy-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: 30px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .trophy {
+            font-size: 5em;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+        }
+
+        .trophy-text {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #6b46c1;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .avatar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 5em;
+            animation: wave 3s infinite;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
+        }
+
+        @media (max-width: 1200px) {
+            .escalera-wrapper {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .step-body {
+                width: 220px;
+                height: auto !important;
+                min-height: 200px;
+            }
+
+            .trophy-container {
+                margin: 30px 0 0 0;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .escalera-wrapper {
+                flex-direction: column;
+                align-items: center;
+                min-height: auto;
+            }
+
+            .step {
+                width: 100%;
+                max-width: 350px;
+                margin-bottom: 20px;
+            }
+
+            .step-body {
+                width: 100%;
+            }
+
+            .step-icon-circle {
+                width: 100px;
+                height: 100px;
+                font-size: 3em;
+            }
+
+            .avatar {
+                font-size: 3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Escalera de metacognición</h1>
+            <p>Guía para una buena reflexión de nuestro aprendizaje</p>
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="expandAll()">📖 Expandir Todo</button>
+            <button class="btn" onclick="collapseAll()">📕 Colapsar Todo</button>
+            <button class="btn" onclick="scrollToTop()">⬆️ Ir Arriba</button>
+        </div>
+
+        <div class="escalera-wrapper">
+            <!-- ESCALÓN 1 - MÁS BAJO (180px) -->
+            <div class="step" onclick="toggleStep(this)">
+                <div class="step-icon-circle">💡</div>
+                <div class="step-body">
+                    <div class="step-title">¿Qué he aprendido?</div>
+                    <div class="step-content">
+                        <ul>
+                            <li>Uso de rúbricas para establecer criterios</li>
+                            <li>Ver la evaluación como oportunidad de aprendizaje</li>
+                            <li>La importancia de la retroalimentación constante</li>
+                            <li>Usar la autoevaluación y coevaluación para fomentar la autonomía</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESCALÓN 2 (260px) -->
+            <div class="step" onclick="toggleStep(this)">
+                <div class="step-icon-circle">⚡</div>
+                <div class="step-body">
+                    <div class="step-title">¿Cómo lo he aprendido?</div>
+                    <div class="step-content">
+                        <ul>
+                            
+                            <li>Leyendo y analizando los materiales y videos</li>
+                            <li>A través de las actividades propuestas</li>
+                            <li>Reflexiónando sobre las propias prácticas </li>
+                            <li>Leyendo los foros y lo compartido por los colegas</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESCALÓN 3 (340px) -->
+            <div class="step" onclick="toggleStep(this)">
+                <div class="step-icon-circle">🎯</div>
+                <div class="step-body">
+                    <div class="step-title">¿Qué habilidades he mejorado?</div>
+                    <div class="step-content">
+                        <ul>
+                            
+                            <li>El diseño de las evaluaciones</li>
+                            <li>El uso de las evidencias </li>
+                            <li>La visualizacion de la retroalimentacion</li>
+                            <li>La reflexión sobre el propio aprendizaje</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESCALÓN 4 (420px) -->
+            <div class="step" onclick="toggleStep(this)">
+                <div class="step-icon-circle">👓</div>
+                <div class="step-body">
+                    <div class="step-title">¿Para qué me ha servido?</div>
+                    <div class="step-content">
+                        <ul>
+                            <li>Para renovar mi vision sobre las evaluaciones</li>
+                            <li>Para cuestionar la propia practica docente</li>
+                            <li>Para entender que la planificación, los criterios, las rúbricas, la retroalimentación y la metacognición no son ideas separadas, sino partes de un mismo sistema</li>
+                       
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESCALÓN 5 - MÁS ALTO (500px) -->
+            <div class="step" onclick="toggleStep(this)">
+                <div class="step-icon-circle">🏅</div>
+                <div class="step-body">
+                    <div class="step-title">¿Cómo lo puedo usar?</div>
+                    <div class="step-content">
+                        <ul>
+                            <li>Usando rúbricas para establecer criterios de evaluación claros</li>
+                            <li>Aplicando la "Escalera de Retroalimentación" para dar devoluciones más constructivas</li>
+                            <li>Implementando autoevaluaciónes y coevaluaciónes, para fomentar la autonomía </li>
+                            <li>Utilizando la "Escalera de Metacognición" con mis alumnos para reflexionar sobre lo aprendido.</li>
+                         
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trophy-container">
+                <div class="trophy">🏆</div>
+                <div class="trophy-text">META<br>ALCANZADA</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="avatar">👩‍🏫</div>
+
+    <script>
+        function toggleStep(element) {
+            element.classList.toggle('collapsed');
+        }
+
+        function expandAll() {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('collapsed');
+            });
+        }
+
+        function collapseAll() {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.add('collapsed');
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
